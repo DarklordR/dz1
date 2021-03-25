@@ -60,7 +60,7 @@ def runningDark(count, period):
 def decToBinList(number):
     res = [0,0,0,0,0,0,0,0]
     for i in range(0,8):
-        res[7 - i] = number & 1
+        res[i] = number & 1
         number = number >> 1
     return res            
 
@@ -70,17 +70,17 @@ def lightNumber(number):
     bin = decToBinList(number)
     for i in range(8):
         GPIO.output(GPI[i], bin[i])
-    time.sleep(0.1)
+    time.sleep(1)
     for i in GPI:
-        GPIO.output(i, 0)
+        GPIO.output(i, 0)    
 
-#lightNumber(245)
+#lightNumber(3)
 #Функция runningPattern(pattern, direction), которая циклично сдвигает "узор", соответсвующий числу pattern (от 0 до 255) в двоичном представлении, влево или вправо в зависимости от direction.  
 def runningPattern(pattern, direction):
     for i in range(8):
         lightNumber(pattern)
 
-        if direction == 'left':
+        if direction == 0:
             high_bit = (pattern & 128) >> 7
             pattern = (pattern << 1) + high_bit
         else:
@@ -88,4 +88,4 @@ def runningPattern(pattern, direction):
             pattern = (pattern >> 1) + (low_bit << 7)
 
             
-runningPattern(3,0) 
+runningPattern(5,0) 
