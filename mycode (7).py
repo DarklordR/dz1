@@ -56,26 +56,15 @@ def runningDark(count, period):
     
 #runningDark(1, 1)
 #Функция decToBinList(decNumber), которая принимает десятичное число от 0 до 255, а возвращает это же число в двоичном виде в виде списка, длина которого равна 8, то есть числу светодиодов (например, если decNumber = 3, то результатом будет [0, 0, 0, 0, 0, 0, 1, 1]).
-def decToBinList(decNumber):
-    D = [0, 0, 0, 0, 0, 0, 0, 0]
-    i = 0;
-    while decNumber > 0:
-        if (decNumber % 2 == 1):
-            D[7-i] = 1
-        decNumber = decNumber // 2    
-        i+=1
-    print(D)    
-    return(D)               
-
-#print(decToBinList(5))
-#Функция lightNumber(number), которая принимает число от 0 до 255 в десятичном формате, переводит его в двоичный вид и зажигает только те светодиоды, номера которых соответствуют положению единиц в числе. Например, для числа 3 должны зажечься светодиоды под номерами 0 и 1. 
 def decToBinList(number):
     res = [0,0,0,0,0,0,0,0]
     for i in range(0,8):
         res[7 - i] = number & 1
         number = number >> 1
-    return res
+    return res            
 
+#print(decToBinList(5))
+#Функция lightNumber(number), которая принимает число от 0 до 255 в десятичном формате, переводит его в двоичный вид и зажигает только те светодиоды, номера которых соответствуют положению единиц в числе. Например, для числа 3 должны зажечься светодиоды под номерами 0 и 1. 
 def lightNumber(number):
     bin = decToBinList(number)
     for i in range(8):
