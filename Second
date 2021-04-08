@@ -1,0 +1,36 @@
+# import raspberry pi GPIO module
+try:
+    import RPi.GPIO as GPIO
+    import time
+except importError:
+    print('ImportError!')
+    exit()
+
+try:
+    GPI=[10,9,11,5,6,13,19,26]
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(GPI, GPIO.OUT)
+    GPIO.output(GPI,0)
+except:
+    print('GPIO Init. error!')  
+    exit()
+
+import(First)
+print('Введите число повторений (-1 - выход):')
+repetitionsNumber = input()
+try:
+    o = int(repetitionsNumber)
+except ValueError:
+    print("Это не похоже на число")
+    continue
+if o==-1:
+    exit()
+if o<0:
+    print("Число повторений не может быть отрицательным")
+    continue
+    
+for j in range(0,o):
+    for i in range(0,256):
+        num2dac(i)
+    for i in range(255,-1,-1):
+        num2dac(i)
