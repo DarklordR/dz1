@@ -1,9 +1,9 @@
 # import raspberry pi GPIO module
 import RPi.GPIO as GPIO
 import time
-import numpy as np
-import matplotlib.pyplot as plt
-from time import sleep
+#import numpy as np
+#import matplotlib.pyplot as plt
+#from time import sleep
 
 GPI=[21,20,16,12,1,7,8,25]
 GPIO.setmode(GPIO.BCM)
@@ -27,12 +27,18 @@ def num2dac(value):
 
 while one==1:
     print('Введите число (-1 для выхода)')
-    value = int(input())
-    if value ==-1: 
-        exit(0)
-    if (value<-1 or value>255):
-        print('Error')
-        exit(-1)   
+    
+    value = input()
+    try:
+        o = int(value)
+    except ValueError:
+        print("Это не похоже на число")
+        continue
+    if o==-1:
+        exit()
+    if o<0:
+        print("Число не может быть отрицательным")
+        continue
     num2dac(value)
     
 #Второй скрипт:
@@ -40,9 +46,21 @@ while one==1:
 two=0
 
 while two==1:
-    print('Введите число повторений:')
-    repetitionsNumber = int(input())
-    for j in range(0,repetitionsNumber):
+    #import(num2dac)
+    print('Введите число повторений (-1 - выход):')
+    repetitionsNumber = input()
+    try:
+        o = int(repetitionsNumber)
+    except ValueError:
+        print("Это не похоже на число")
+        continue
+    if o==-1:
+        exit()
+    if o<0:
+        print("Число повторений не может быть отрицательным")
+        continue
+    
+    for j in range(0,o):
         for i in range(0,256):
             num2dac(i)
         for i in range(255,-1,-1):
@@ -50,8 +68,53 @@ while two==1:
             
 #Третий скрипт:
 #При запуске этого скрипта на ЦАП подается напряжение, которое меняется по синусоидальному закону в течение времени time. Здесь необходимо создать ndarray (массив) целых чисел, которые будут соответствовать значениям функции синуса, меняющейся с частотой frequency. На выходе ЦАП каждые 1/samplingFrequency секунд выставляется новое напряжение, соответствующее значению функции синуса в данный момент времени. Прежде чем передавать синусоидальный сигнал на ЦАП, нужно нарисовать график и проверить, что сигнал имеет нужную форму, амплитуду, максимальное и минимальное значения в нужном диапазоне.  
-def sinus(time,frequency,samplingFrequency):
-  t = np.arange(0, time, frequency)
+tre=0
+
+while tre==1:
+time,frequency,samplingFrequency
+    print('Введите время (-1 - выход):')
+    repetitionsNumber = input()
+    try:
+        k = int(repetitionsNumber)
+    except ValueError:
+        print("Это не похоже на число")
+        continue
+    if k==-1:
+        exit()
+    if k<0:
+        print("Время не может быть отрицательным")
+        continue
+    time = k;
+    
+    print('Введите частоту графика (-1 - выход):')
+    frequency = input()
+    try:
+        k = int(frequency)
+    except ValueError:
+        print("Это не похоже на число")
+        continue
+    if k==-1:
+        exit()
+    if k<0:
+        print("Частота не может быть отрицательной")
+        continue
+    frequency = k;
+    
+    print('Введите частоту моргания (-1 - выход):')
+    samplingFrequency = input()
+    try:
+        k = int(samplingFrequency)
+    except ValueError:
+        print("Это не похоже на число")
+        continue
+    if k==-1:
+        exit()
+    if k<0:
+        print("Частота не может быть отрицательной")
+        continue
+    samplingFrequency = k;
+    
+  t = np.arange(0, k, frequency)
   ndarray = np.sin(t)
   plt.plot(t, ndarray)
   plt.title('Синус')
@@ -71,5 +134,3 @@ def sinus(time,frequency,samplingFrequency):
         if res[g]==1:
             GPIO.output(GPI[i], 1)
     time.sleep(1/samplingFrequency)
-
-sinus(10,0.1,0)
